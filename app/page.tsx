@@ -24,6 +24,7 @@ export default function Home() {
   // This is the "Memory" of our app. It starts as an empty string.
   const [selectedCountry, setSelectedCountry] = useState("");
   const filteredUnis = selectedCountry ? ALL_UNIVERSITIES.filter(uni => uni.country === selectedCountry) : ALL_UNIVERSITIES;
+
   return (
     <main className="min-h-screen bg-brand-light p-8">
       <header className="mb-8">
@@ -55,13 +56,21 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UniCard 
-          name="University of Oxford" 
-          country="United Kingdom" 
-          deadline="Jan 15, 2026" 
-          status="In Progress" 
-        />
-      </div>
+  {filteredUnis.map((uni) => (
+    <UniCard 
+      key={uni.id} // React needs a 'key' to keep track of items in a list
+      name={uni.name}
+      country={uni.country}
+      deadline={uni.deadline}
+      status={uni.status}
+    />
+  ))}
+  
+  {/* Show a message if no universities are found for a country */}
+  {filteredUnis.length === 0 && (
+    <p className="text-brand-deep italic">No applications started for {selectedCountry} yet.</p>
+  )}
+</div>
     </main>
   );
 }
