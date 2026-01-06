@@ -1,22 +1,52 @@
+"use client"; // We need this now because we are using 'useState'
+
+import { useState } from "react";
 import WorldMap from "@/components/WorldMap";
 import UniCard from "@/components/UniCard";
 
+interface University {
+  id: number;
+  name: string;
+  country: string;
+  deadline: string;
+  status: "Wishlist" | "Applied" | "Accepted" | "Rejected" | "In Progress";
+}
+
+
 export default function Home() {
+  // This is the "Memory" of our app. It starts as an empty string.
+  const [selectedCountry, setSelectedCountry] = useState("");
+
   return (
     <main className="min-h-screen bg-brand-light p-8">
-      {/* Header Section */}
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-brand-dark tracking-tight">Application Patrol</h1>
-        <p className="text-brand-deep mt-2 font-medium">Select a country to explore your journey.</p>
+        <p className="text-brand-deep mt-2 font-medium">
+          {selectedCountry 
+            ? `Viewing applications for ${selectedCountry}` 
+            : "Select a country to explore your journey."}
+        </p>
       </header>
 
-      {/* Map Section */}
       <section className="mb-12 max-w-5xl mx-auto">
-        <WorldMap />
+        {/* We pass the 'setSelectedCountry' function into our map */}
+        <WorldMap onCountryClick={(name) => setSelectedCountry(name)} />
       </section>
 
-      {/* List Section */}
-      <h2 className="text-2xl font-bold text-brand-dark mb-6">Shortlisted Universities</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-brand-dark">
+          {selectedCountry ? `${selectedCountry} Universities` : "All Universities"}
+        </h2>
+        {selectedCountry && (
+          <button 
+            onClick={() => setSelectedCountry("")}
+            className="text-brand-deep hover:text-brand-primary text-sm font-bold underline"
+          >
+            Clear Selection
+          </button>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <UniCard 
           name="University of Oxford" 
