@@ -23,7 +23,7 @@ const ALL_UNIVERSITIES: University[] = [
 export default function Home() {
   // This is the "Memory" of our app. It starts as an empty string.
   const [selectedCountry, setSelectedCountry] = useState("");
-
+  const filteredUnis = selectedCountry ? ALL_UNIVERSITIES.filter(uni => uni.country === selectedCountry) : ALL_UNIVERSITIES;
   return (
     <main className="min-h-screen bg-brand-light p-8">
       <header className="mb-8">
