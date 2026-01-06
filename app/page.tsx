@@ -12,6 +12,13 @@ interface University {
   status: "Wishlist" | "Applied" | "Accepted" | "Rejected" | "In Progress";
 }
 
+const ALL_UNIVERSITIES: University[] = [
+  { id: 1, name: "University of Oxford", country: "United Kingdom", deadline: "Jan 15, 2026", status: "In Progress" },
+  { id: 2, name: "Harvard University", country: "United States", deadline: "Jan 01, 2026", status: "Wishlist" },
+  { id: 3, name: "University of Toronto", country: "Canada", deadline: "Feb 15, 2026", status: "In Progress" },
+  { id: 4, name: "Imperial College London", country: "United Kingdom", deadline: "Jan 20, 2026", status: "Applied" },
+];
+
 
 export default function Home() {
   // This is the "Memory" of our app. It starts as an empty string.
